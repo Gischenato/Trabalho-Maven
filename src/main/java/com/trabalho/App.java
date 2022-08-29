@@ -25,6 +25,11 @@ public class App {
             Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
         ) {
+
+            int normal = 0;
+            int luxo = 0;
+            int simples = 0;
+
             for (CSVRecord csvRecord : csvParser) {
                 // Accessing Values by Column Index
                 String placa = csvRecord.get(0);
@@ -39,7 +44,26 @@ public class App {
                 System.out.println("Cor : " + cor);
                 System.out.println("Categoria : " + categoria);
                 System.out.println("---------------\n\n");
+
+                switch (categoria) {
+                    case "SIMPLES":
+                        simples++;
+                        break;
+                    case "NORMAL":
+                        normal++;
+                        break;
+                    case "LUXO":
+                        luxo++;
+                        break;
+                    default:
+                        break;
+                }
             }
+
+            System.out.println("Carros por categoria:");
+            System.out.println("SIMPLES: " + simples);
+            System.out.println("NORMAL: " + normal);
+            System.out.println("LUXO: " + luxo);
         }
     }
 }
