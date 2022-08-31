@@ -29,6 +29,7 @@ public class App {
             int normal = 0;
             int luxo = 0;
             int simples = 0;
+            int totalCarros = 0;
 
             for (CSVRecord csvRecord : csvParser) {
                 // Accessing Values by Column Index
@@ -36,6 +37,7 @@ public class App {
                 String marca = csvRecord.get(1);
                 String cor = csvRecord.get(2);
                 String categoria = csvRecord.get(3);
+                totalCarros++;
 
                 System.out.println("Record No - " + csvRecord.getRecordNumber());
                 System.out.println("---------------");
@@ -64,6 +66,8 @@ public class App {
             System.out.println("SIMPLES: " + simples);
             System.out.println("NORMAL: " + normal);
             System.out.println("LUXO: " + luxo);
+
+            System.out.println("Total de carros: " + totalCarros);
         }
     }
 }
