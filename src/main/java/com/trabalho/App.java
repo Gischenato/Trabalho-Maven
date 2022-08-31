@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 
 /*
 Exemplo simples de uso da API Apache Commons CVS
@@ -21,6 +22,8 @@ public class App {
     private static final String SAMPLE_CSV_FILE_PATH = "src/data/veiculos.dat";
 
     public static void main(String[] args) throws IOException {
+        HashSet<String> cores = new HashSet<>();
+        boolean primeiro = true;
         try (
             Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
@@ -38,7 +41,7 @@ public class App {
                 String cor = csvRecord.get(2);
                 String categoria = csvRecord.get(3);
                 totalCarros++;
-
+                
                 System.out.println("Record No - " + csvRecord.getRecordNumber());
                 System.out.println("---------------");
                 System.out.println("Placa : " + placa);
@@ -46,6 +49,10 @@ public class App {
                 System.out.println("Cor : " + cor);
                 System.out.println("Categoria : " + categoria);
                 System.out.println("---------------\n\n");
+                
+                if(!primeiro)
+                    cores.add(cor);
+                primeiro = false;
 
                 switch (categoria) {
                     case "SIMPLES":
@@ -68,6 +75,9 @@ public class App {
             System.out.println("LUXO: " + luxo);
 
             System.out.println("Total de carros: " + totalCarros);
+
+            System.out.println("Cores dos carros: " + cores.stream().reduce((c1, c2) -> c1+ ' ' +c2).get());
+            
         }
     }
 }
